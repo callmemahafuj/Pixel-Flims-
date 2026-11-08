@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090909">
+<title>PIXEL FILMS — Your Cinema. Your World.</title>
+<style>
+:root{--bg:#090909;--panel:#151515;--gold:#e8b84b;--muted:#aaa;--white:#f7f4ed}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--white);font-family:Inter,Arial,sans-serif}
+header{height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 6%;border-bottom:1px solid #262626;position:sticky;top:0;background:#090909ed;backdrop-filter:blur(12px);z-index:5}
+.brand{font-weight:900;letter-spacing:2px;font-size:22px}.brand span{color:var(--gold)}
+nav{display:flex;gap:24px}nav a{color:#ddd;text-decoration:none;font-size:14px}nav a:hover{color:var(--gold)}
+.hero{min-height:480px;padding:90px 8%;display:flex;align-items:center;background:linear-gradient(90deg,#090909 12%,#090909dd 52%,#09090922),radial-gradient(circle at 75% 40%,#704b19 0,#24180b 28%,#101010 65%)}
+.hero-inner{max-width:650px}.eyebrow{color:var(--gold);font-weight:700;letter-spacing:4px;font-size:12px}.hero h1{font-size:clamp(42px,7vw,76px);line-height:.98;margin:18px 0}.hero p{color:#c4c0b8;line-height:1.7;max-width:520px}
+.btn{border:0;border-radius:4px;padding:13px 20px;font-weight:800;cursor:pointer;text-decoration:none;display:inline-block}.primary{background:var(--gold);color:#17120a}.secondary{background:#292929;color:white;border:1px solid #555;margin-left:8px}
+main{padding:36px 6% 70px}.section-head{display:flex;align-items:end;justify-content:space-between;margin:12px 0 20px}.section-head h2{font-size:25px;margin:0}.section-head p{color:var(--muted);font-size:13px;margin:0}
+.tools{display:flex;gap:10px;margin:20px 0 26px;flex-wrap:wrap}.tools input,.tools select{background:#171717;color:white;border:1px solid #393939;padding:12px 14px;border-radius:4px;min-width:180px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:22px}.movie{background:var(--panel);border:1px solid #242424;border-radius:7px;overflow:hidden;transition:.2s}.movie:hover{transform:translateY(-4px);border-color:#80632c}
+.poster{height:245px;display:flex;align-items:end;padding:15px;background:linear-gradient(145deg,var(--c1),var(--c2));position:relative;overflow:hidden}.poster:before{content:"";position:absolute;width:180px;height:180px;border:1px solid #ffffff22;border-radius:50%;right:-50px;top:-35px;box-shadow:0 0 0 18px #ffffff0a,0 0 0 38px #ffffff08}.poster strong{font-size:21px;line-height:1.05;position:relative;text-shadow:0 2px 10px #000}
+.movie-info{padding:13px}.movie-info h3{margin:0 0 6px;font-size:15px}.meta{color:var(--muted);font-size:12px}.actions{display:flex;gap:8px;margin-top:13px}.actions button{flex:1;padding:9px 5px;font-size:12px}
+.empty{color:#aaa;padding:35px;text-align:center;border:1px dashed #444;border-radius:8px;grid-column:1/-1}
+footer{border-top:1px solid #292929;padding:28px 6%;color:#888;font-size:13px;display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}footer b{color:var(--gold)}
+.modal{display:none;position:fixed;inset:0;background:#000e;z-index:10;align-items:center;justify-content:center;padding:18px}.modal.open{display:flex}.dialog{background:#151515;border:1px solid #444;border-radius:8px;width:min(850px,100%);padding:18px}.dialog-top{display:flex;justify-content:space-between;align-items:center}.dialog h2{margin:5px 0 14px}.close{background:#333;color:#fff;border:0;border-radius:4px;padding:8px 12px;cursor:pointer}
+video{width:100%;max-height:65vh;background:#000;border-radius:5px}.hint{font-size:12px;color:#aaa;line-height:1.6}
+@media(max-width:650px){header{padding:0 5%;height:64px}nav{gap:12px}nav a{font-size:12px}.hero{min-height:400px;padding:65px 6%}.hero h1{font-size:48px}main{padding:28px 5%}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.poster{height:205px}.section-head p{display:none}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">PIXEL <span>FILMS</span></div>
+  <nav><a href="#home">Home</a><a href="#movies">Movies</a><a href="#about">About</a></nav>
+</header>
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div class="eyebrow">WELCOME TO PIXEL FILMS</div>
+    <h1>YOUR CINEMA.<br><span style="color:var(--gold)">YOUR WORLD.</span></h1>
+    <p>Discover stories worth watching. Explore our collection and enjoy films from your phone, tablet or computer.</p>
+    <a class="btn primary" href="#movies">EXPLORE MOVIES</a>
+    <a class="btn secondary" href="https://t.me/" target="_blank" rel="noopener">TELEGRAM</a>
+  </div>
+</section>
+<main id="movies">
+  <div class="section-head"><div><div class="eyebrow">THE COLLECTION</div><h2>Featured Movies</h2></div><p>Only videos you own or have permission to share.</p></div>
+  <div class="tools">
+    <input id="search" type="search" placeholder="Search movies..." aria-label="Search movies">
+    <select id="category" aria-label="Filter by category"><option value="All">All categories</option><option>Action</option><option>Drama</option><option>Comedy</option><option>Documentary</option><option>Short Film</option></select>
+  </div>
+  <div class="grid" id="movieGrid"></div>
+</main>
+<footer id="about"><span><b>PIXEL FILMS</b> · Your Cinema. Your World.</span><span>© <span id="year"></span> PIXEL FILMS · Share only authorized content.</span></footer>
+
+<div class="modal" id="playerModal" role="dialog" aria-modal="true" aria-label="Video player">
+ <div class="dialog">
+  <div class="dialog-top"><div class="eyebrow">NOW PLAYING</div><button class="close" id="closeModal">✕ Close</button></div>
+  <h2 id="playerTitle">Movie title</h2>
+  <video id="videoPlayer" controls playsinline preload="metadata"></video>
+  <p class="hint">If playback does not start, the video link may be missing or the host may not allow website embedding. Replace the demo URL in the MOVIES list with a direct video URL from content you are allowed to distribute.</p>
+ </div>
+</div>
+<script>
+/* EDIT THIS LIST to add your own authorized films.
+   video: direct MP4/HLS URL that permits embedding.
+   download: direct downloadable file URL (if your host supports it).
+*/
+const MOVIES = [
+ {title:"Your First Film",category:"Short Film",year:"2026",duration:"Add duration",description:"Replace this sample card with your own film.",video:"",download:"",c1:"#79552a",c2:"#17100b"},
+ {title:"Behind the Scenes",category:"Documentary",year:"2026",duration:"Add duration",description:"Add a description for your video.",video:"",download:"",c1:"#31515b",c2:"#111b22"},
+ {title:"Coming Soon",category:"Drama",year:"2026",duration:"Coming soon",description:"Your next featured release.",video:"",download:"",c1:"#6b343d",c2:"#1b1117"}
+];
+const grid=document.getElementById('movieGrid'),search=document.getElementById('search'),category=document.getElementById('category');
+function render(){
+ const q=search.value.toLowerCase(),cat=category.value;
+ const list=MOVIES.filter(m=>(cat==='All'||m.category===cat)&&(`${m.title} ${m.description} ${m.category}`).toLowerCase().includes(q));
+ grid.innerHTML='';
+ if(!list.length){grid.innerHTML='<div class="empty">No movies found. Try another search.</div>';return;}
+ list.forEach((m,i)=>{
+  const card=document.createElement('article');card.className='movie';
+  const poster=document.createElement('div');poster.className='poster';poster.style.setProperty('--c1',m.c1||'#70512c');poster.style.setProperty('--c2',m.c2||'#111');
+  const titleArt=document.createElement('strong');titleArt.textContent=m.title;poster.appendChild(titleArt);
+  const info=document.createElement('div');info.className='movie-info';
+  const h=document.createElement('h3');h.textContent=m.title;
+  const meta=document.createElement('div');meta.className='meta';meta.textContent=`${m.category} · ${m.year} · ${m.duration}`;
+  const desc=document.createElement('div');desc.className='meta';desc.style.marginTop='8px';desc.textContent=m.description||'';
+  const actions=document.createElement('div');actions.className='actions';
+  const watch=document.createElement('button');watch.className='btn primary';watch.textContent='▶ Watch';watch.onclick=()=>openPlayer(m);
+  actions.appendChild(watch);
+  if(m.download){const dl=document.createElement('a');dl.className='btn secondary';dl.textContent='↓ Download';dl.href=m.download;dl.target='_blank';dl.rel='noopener';actions.appendChild(dl);}
+  info.append(h,meta,desc,actions);card.append(poster,info);grid.appendChild(card);
+ });
+}
+function openPlayer(m){
+ const modal=document.getElementById('playerModal'),video=document.getElementById('videoPlayer');
+ document.getElementById('playerTitle').textContent=m.title;
+ video.pause();video.removeAttribute('src');video.load();
+ if(m.video){video.src=m.video;video.load();}else{alert('This is a demo card. Add a direct video URL in the MOVIES list to enable playback.');return;}
+ modal.classList.add('open');
+}
+function closePlayer(){const modal=document.getElementById('playerModal'),video=document.getElementById('videoPlayer');video.pause();video.removeAttribute('src');video.load();modal.classList.remove('open');}
+document.getElementById('closeModal').onclick=closePlayer;
+document.getElementById('playerModal').addEventListener('click',e=>{if(e.target.id==='playerModal')closePlayer()});
+search.addEventListener('input',render);category.addEventListener('change',render);
+document.getElementById('year').textContent=new Date().getFullYear();render();
+</script>
+</body>
+</html>
